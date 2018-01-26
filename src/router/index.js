@@ -14,8 +14,12 @@ export default new Router({
   routes: [
     {
       path: '/login',
-      component: Login,
+      component: Login
+    }, {
+      path: '/register',
+      component: Login
     },
+    ,
     {
       path: '',
       component: Layout,

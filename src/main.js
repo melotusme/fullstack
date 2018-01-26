@@ -8,9 +8,17 @@ import showdown from 'showdown'
 import App from './App'
 import router from './router'
 
+router.beforeEach((to, from, next) => {
+  const token = sessionStorage.getItem('koa-blog');
+  if (token != 'null' && token != null) {
+    Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    next()
+  }
+  next()
+})
+
 import layout from '@/components/Layout'
 Vue.use(layout)
-
 
 Vue.use(ElementUI)
 Vue.prototype.$http = Axios
@@ -21,6 +29,6 @@ Vue.config.productionTip = false
 const app = new Vue({
   el: '#app',
   router,
-  components: { App,},
+  components: { App, },
   template: '<App/>'
 })

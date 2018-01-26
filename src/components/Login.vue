@@ -1,11 +1,13 @@
 <template>
   <el-row class="content">
     <el-col :sm="{span: 6, offset: 9}">
-      <span class="title">请登录</span>
+      <span v-if="isLogin" class="title">请登录</span>
+      <span v-else class="title">请注册</span>
       <el-row>
-        <el-input v-model="username" placeholder="username" type="text"></el-input>
-        <el-input v-model="password" placeholder="password" type="password"></el-input>
-        <el-button type="primary" @click="login">登录</el-button>
+        <el-input v-model="user.username" placeholder="username" type="text"></el-input>
+        <el-input v-model="user.password" placeholder="password" type="password"></el-input>
+        <el-button v-if="isLogin" type="primary" v-on:click="login">登录</el-button>
+        <el-button v-else type="primary" v-on:click="register">注册</el-button>
       </el-row>  
     </el-col>
   </el-row>  
@@ -16,13 +18,51 @@
 export default {
   data() {
     return {
-      username: "",
-      password: ""
+      user: {
+        username: "",
+        password: ""
+      },
+      isLogin: true
     };
   },
   methods: {
     login() {
-      console.error("TODO login");
+      this.$http.post("/api/auth/login", this.user).then(
+        resp => {
+          if (resp.data.code == "success") {
+            sessionStorage.setItem("koa-blog", resp.data.token);
+            this.$router.push("/articles");
+            this.$message({
+              type: "success",
+              message: "成功登录"
+            });
+          } else {
+            this.$message.error("登录失败");
+          }
+        },
+        err => {}
+      );
+    },
+    register() {
+      this.$http.post("/api/auth/register", this.user).then(
+        resp => {
+          if (resp.data.code == "success") {
+            sessionStorage.setItem("koa-blog", resp.data.token);
+            this.$message({
+              type: "success",
+              message: "成功注册"
+            });
+          } else {
+            this.$message.error("注册失败");
+          }
+        },
+        err => {}
+      );
+    }
+  },
+  mounted() {
+    if (this.$route.path == "/register") {
+      this.isLogin = false;
     }
   }
 };

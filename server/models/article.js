@@ -4,10 +4,10 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     body: DataTypes.STRING
   }, {
-    classMethods: {
-      associate: function(models) {
+      classMethods: {
+        associate: function (models) {
+        }
       }
-    }
-  });
+    });
   return article;
 };

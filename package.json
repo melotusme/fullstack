@@ -17,6 +17,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "babel-register": "^6.26.0",
+    "bcryptjs": "^2.4.3",
     "element-ui": "^2.0.11",
     "github-markdown-css": "^2.10.0",
     "highlight.js": "^9.12.0",

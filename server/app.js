@@ -1,8 +1,11 @@
 const Koa = require('koa')
 const _ = require('lodash')
 const router = require('koa-router')()
-const bodyParser = require('koa-bodyparser');
+const bodyParser = require('koa-bodyparser')
 const historyApiFallback = require('koa-history-api-fallback') // 引入依赖
+const jsonwebtoken = require('jsonwebtoken')
+const jwt = require('koa-jwt')
+const bcrypt = require('bcryptjs')
 
 const config = require('./config/server.json')
 const db = require('./models')
@@ -15,7 +18,6 @@ const app = new Koa()
 const middlewares = require('./middlewares')
 app.use(bodyParser())
 app.use(middlewares.logger)
-// app.use(historyApiFallback()) // 在这个地方加入。一定要加在静态文件的serve之前，否则会失效。
 
 
 // articles 
@@ -43,17 +45,51 @@ router.del('/articles/:id', async (ctx, next) => {
 })
 
 // auth
-router.post('/login', async (ctx, next) => {
+const authRouter = require('koa-router')()
+const secret = "keep me secret"
+authRouter.post('/login', async (ctx, next) => {
   params = ctx.request.body
-  user = await db.user.findOne({where: {username: params.username}})
-  if (user.password == params.password){
-    ctx.body = user
+  user = await db.user.findOne({ where: { username: params.username } })
+  payload = { id: user.id, username: user.username }
+  token = jsonwebtoken.sign(payload, secret)
+
+  if (bcrypt.compareSync(params.password, user.password)) {
+    ctx.cookies.set("Authorization", "Bearer " + token)
+    ctx.body = {
+      code: "success",
+      token: token
+    }
+  } else{
+    ctx.body = {
+      code: "failed"
+    }
   }
 })
 
+authRouter.post('/register', async(ctx,next)=>{
+  params = ctx.request.body
+  salt = bcrypt.genSaltSync(10)
+  params.password = bcrypt.hashSync(params.password, salt)
+
+  user =  await db.user.create(params)
+  payload = { id: user.id, username: user.username }
+  token = jsonwebtoken.sign(payload, secret)
+  ctx.body = {
+    code: "success",
+    token,
+  }
+})
+
+
+app.use(jwt({ secret }).unless({ path: [/^\/public/, /^\/api\/auth/] }))
+
 router.use('/api', router.routes())
 app.use(router.routes())
+authRouter.use('/api/auth',authRouter.routes())
+app.use(authRouter.routes())
+console.log(authRouter.stack.map(i=>i.path))
 
+app.use(historyApiFallback());
 app.listen(config.port, () => {
   console.log(`I'm listening ${config.port}`)
 })
