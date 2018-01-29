@@ -9,6 +9,7 @@ const bcrypt = require('bcryptjs')
 
 const config = require('./config/server.json')
 const db = require('./models')
+const mdb = require('./mdb')
 
 
 const app = new Koa()
@@ -18,6 +19,7 @@ const app = new Koa()
 const middlewares = require('./middlewares')
 app.use(bodyParser())
 app.use(middlewares.logger)
+app.use(middlewares.logIP(mdb))
 
 
 // articles 

@@ -4,6 +4,7 @@ import Login from '@/components/Login'
 import ArticleList from '@/components/ArticleList'
 import Article from '@/components/Article'
 import Layout from '@/components/Layout'
+import LandPage from '@/components/LandPage'
 import About from '@/components/About'
 
 
@@ -19,14 +20,14 @@ export default new Router({
       path: '/register',
       component: Login
     },
-    ,
     {
       path: '',
       component: Layout,
       children: [
-        { path: '/articles/:id', name: 'Article', component: Article },
+        { path: '/index', name: 'LandPage', component: LandPage },
         { path: '/about', name: 'About', component: About },
-        { path: '/articles', name: 'Articles', component: ArticleList }
+        { path: '/articles', name: 'Articles', component: ArticleList },
+        { path: '/articles/:id', name: 'Article', component: Article }
       ]
     }
   ]

@@ -1,5 +1,5 @@
 <template>
-  <h2>一名演员</h2>
+  <h2>this is the landpage</h2>
 </template>
 <script>
 export default {};

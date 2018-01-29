@@ -8,8 +8,19 @@ async function logger(ctx, next) {
   console.log(`${moment().format()} ${ctx.method} ${ctx.url} ${ms} ms`)
 }
 
-module.exports =  {
-  logger
+function logIP(mdb) {
+  return async function (ctx, next) {
+    ip = ctx.request.ip
+    // const ips = mdb.get('ips')
+    // ips.find({ip})
+    // console.log(i)
+    await next()
+  }
+}
+
+module.exports = {
+  logger,
+  logIP
 }
 
 

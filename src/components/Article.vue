@@ -5,6 +5,7 @@
         <markdown-editor
           v-model="article.body" :configs="configs"
           ref="markdownEditor"
+          preview-class="markdown-body"
           :highlight="true"
           />
         <span class="pull-right">
@@ -18,6 +19,7 @@
 import { markdownEditor } from "vue-simplemde";
 import "simplemde-theme-base/dist/simplemde-theme-base.min.css";
 import 'highlight.js/styles/solarized-light.css';
+import 'github-markdown-css'
 import hljs from 'highlight.js';
 window.hljs = hljs;
 

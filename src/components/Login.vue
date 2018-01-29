@@ -31,7 +31,7 @@ export default {
         resp => {
           if (resp.data.code == "success") {
             sessionStorage.setItem("koa-blog", resp.data.token);
-            this.$router.push("/articles");
+            this.$router.push("/index");
             this.$message({
               type: "success",
               message: "成功登录"
@@ -50,8 +50,11 @@ export default {
             sessionStorage.setItem("koa-blog", resp.data.token);
             this.$message({
               type: "success",
-              message: "成功注册"
+              message: "成功注册，请重新登陆"
             });
+            // 成功注册后，需要跳转回登陆，并将当前组建状态修改为登陆组件
+            this.isLogin = true;
+            this.$router.push('/login')
           } else {
             this.$message.error("注册失败");
           }
@@ -69,6 +72,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+
+.content {
+  margin-top: 12%;
+}
 .title {
   font-size: 28px;
 }

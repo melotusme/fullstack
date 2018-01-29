@@ -3,11 +3,11 @@
     <el-row>
       <el-col :span="8" v-for="article in articles" :key="article.id">
         <el-card :body-style="{ padding: '4px' }">
-          <img src="http://element.eleme.io/static/hamburger.50e4091.png" class="image">
+          <!-- <img src="http://element.eleme.io/static/hamburger.50e4091.png" class="image"> -->
           <div style="padding: 14px;">
-            <span>{{article.title}}</span>
+            <span class="title">{{article.title}}</span>
             <div class="bottom clearfix">
-              <time class="time">{{ article.createdAt }}</time>
+              <time class="time">{{ article.createdAt | format}}</time>
               <el-button type="text" class="button" @click="detail(article.id)" >阅读</el-button>
             </div>
           </div>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+const moment = require("moment");
+
 export default {
   created() {
     this.getAll();
@@ -59,6 +61,11 @@ export default {
     detail(id) {
       this.$router.push(`/articles/${id}`);
     }
+  },
+  filters: {
+    format: function(date) {
+      return moment(date).format("YYYY/MM/DD HH:mm:ss");
+    }
   }
 };
 </script>
@@ -87,6 +94,10 @@ export default {
 .clearfix:before, .clearfix:after {
   display: table;
   content: '';
+}
+
+.title {
+  font-size: 14px;
 }
 
 .clearfix:after {
