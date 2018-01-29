@@ -11,6 +11,9 @@ const config = require('./config/server.json')
 const db = require('./models')
 const mdb = require('./mdb')
 
+const path = require('path')
+const staic = require('koa-static')
+
 
 const app = new Koa()
 
@@ -84,6 +87,9 @@ authRouter.post('/register', async(ctx,next)=>{
 
 
 app.use(jwt({ secret }).unless({ path: [/^\/public/, /^\/api\/auth/] }))
+
+// 静态文件serve在koa-router的其他规则之上 
+app.use(serve(path.resolve('dist'))); // 将webpack打包好的项目目录作为Koa静态文件服务的目录
 
 router.use('/api', router.routes())
 app.use(router.routes())
