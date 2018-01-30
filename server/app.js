@@ -12,7 +12,7 @@ const db = require('./models')
 const mdb = require('./mdb')
 
 const path = require('path')
-const staic = require('koa-static')
+const koaStaic = require('koa-static')
 
 
 const app = new Koa()
@@ -20,6 +20,7 @@ const app = new Koa()
 
 //use middlewares
 const middlewares = require('./middlewares')
+app.use(koaStaic(path.resolve('dist')))
 app.use(bodyParser())
 app.use(middlewares.logger)
 app.use(middlewares.logIP(mdb))
@@ -64,19 +65,19 @@ authRouter.post('/login', async (ctx, next) => {
       code: "success",
       token: token
     }
-  } else{
+  } else {
     ctx.body = {
       code: "failed"
     }
   }
 })
 
-authRouter.post('/register', async(ctx,next)=>{
+authRouter.post('/register', async (ctx, next) => {
   params = ctx.request.body
   salt = bcrypt.genSaltSync(10)
   params.password = bcrypt.hashSync(params.password, salt)
 
-  user =  await db.user.create(params)
+  user = await db.user.create(params)
   payload = { id: user.id, username: user.username }
   token = jsonwebtoken.sign(payload, secret)
   ctx.body = {
@@ -86,16 +87,13 @@ authRouter.post('/register', async(ctx,next)=>{
 })
 
 
-app.use(jwt({ secret }).unless({ path: [/^\/public/, /^\/api\/auth/] }))
-
-// 静态文件serve在koa-router的其他规则之上 
-app.use(serve(path.resolve('dist'))); // 将webpack打包好的项目目录作为Koa静态文件服务的目录
+// app.use(jwt({ secret }).unless({ path: [/^\/public/, /fav\w*/, /login/, /^\/api\/auth/] }))
 
 router.use('/api', router.routes())
 app.use(router.routes())
-authRouter.use('/api/auth',authRouter.routes())
+authRouter.use('/api/auth', authRouter.routes())
 app.use(authRouter.routes())
-console.log(authRouter.stack.map(i=>i.path))
+console.log(authRouter.stack.map(i => i.path))
 
 app.use(historyApiFallback());
 app.listen(config.port, () => {
