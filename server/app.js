@@ -2,10 +2,10 @@ const Koa = require('koa')
 const _ = require('lodash')
 const router = require('koa-router')()
 const bodyParser = require('koa-bodyparser')
-const historyApiFallback = require('koa-history-api-fallback') // 引入依赖
 const jsonwebtoken = require('jsonwebtoken')
 const jwt = require('koa-jwt')
 const bcrypt = require('bcryptjs')
+const historyApiFallback = require('koa-history-api-fallback');
 
 const config = require('./config/server.json')
 const db = require('./models')
@@ -20,6 +20,7 @@ const app = new Koa()
 
 //use middlewares
 const middlewares = require('./middlewares')
+app.use(historyApiFallback)
 app.use(koaStaic(path.resolve('dist')))
 app.use(bodyParser())
 app.use(middlewares.logger)
@@ -87,7 +88,7 @@ authRouter.post('/register', async (ctx, next) => {
 })
 
 
-// app.use(jwt({ secret }).unless({ path: [/^\/public/, /fav\w*/, /login/, /^\/api\/auth/] }))
+app.use(jwt({ secret }).unless({ path: [/^\/public/, /fav\w*/, /login/, /^\/api\/auth/] }))
 
 router.use('/api', router.routes())
 app.use(router.routes())
