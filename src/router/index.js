@@ -29,6 +29,10 @@ export default new Router({
         { path: '/articles', name: 'Articles', component: ArticleList },
         { path: '/articles/:id', name: 'Article', component: Article }
       ]
+    },
+    {
+      path: '*',
+      redirect: '/login'
     }
   ]
 })
