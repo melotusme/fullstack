@@ -30,7 +30,7 @@ export default {
       this.$http.post("/api/auth/login", this.user).then(
         resp => {
           if (resp.data.code == "success") {
-            sessionStorage.setItem("koa-blog", resp.data.token);
+            localStorage.setItem("koa-blog", resp.data.token);
             this.$router.push("/index");
             this.$message({
               type: "success",
@@ -47,7 +47,7 @@ export default {
       this.$http.post("/api/auth/register", this.user).then(
         resp => {
           if (resp.data.code == "success") {
-            sessionStorage.setItem("koa-blog", resp.data.token);
+            localStorage.setItem("koa-blog", resp.data.token);
             this.$message({
               type: "success",
               message: "成功注册，请重新登陆"

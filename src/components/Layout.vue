@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     logout() {
-      sessionStorage.removeItem("koaBlog");
+      localStorage.removeItem("koaBlog");
       this.$notify({
         title: "成功",
         message: "注销",
