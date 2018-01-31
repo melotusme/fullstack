@@ -9,7 +9,7 @@ import App from './App'
 import router from './router'
 
 router.beforeEach((to, from, next) => {
-  const token = sessionStorage.getItem('koa-blog');
+  const token = localStorage.getItem('koa-blog');
   if (token != 'null' && token != null) {
     Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
     next()
