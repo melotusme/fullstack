@@ -27,7 +27,7 @@ app.use(middlewares.logger)
 app.use(middlewares.logIP(mdb))
 
 
-// articles 
+// articles
 router.post('/articles/', async (ctx, next) => {
   article = await db.article.create(ctx.request.body)
   ctx.body = article
@@ -95,6 +95,7 @@ app.use(router.routes())
 authRouter.use('/api/auth', authRouter.routes())
 app.use(authRouter.routes())
 console.log(authRouter.stack.map(i => i.path))
+console.log(router.stack.map(i => i.path))
 
 app.use(historyApiFallback());
 app.listen(config.port, () => {
