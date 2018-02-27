@@ -1,10 +1,11 @@
 <template>
   <el-row class="content">
-    <el-menu class="el-menu-demo" mode="horizontal" :router="true">
+    <el-menu class="el-menu" mode="horizontal" :router="true">
       <el-menu-item index="index" :route="{path: '/index'}">主页</el-menu-item>
       <el-menu-item index="articles" :route="{path: '/articles'}">全部文章</el-menu-item>
+      <el-menu-item index="new" :route="{path: '/articles/new'}">写文章</el-menu-item>
       <el-menu-item index="about" :route="{path: '/about'}">关于我</el-menu-item>
-      <el-menu-item index="logout" @click="logout">登出</el-menu-item>
+      <el-menu-item index="logout" @click="logout" class="logout">登出</el-menu-item>
     </el-menu>    
 
     <el-col>
@@ -53,6 +54,10 @@ export default {
   height: 100%;
 }
 
+// .logout {
+//   position:absolute;
+//   right:200px;
+// }
 </style>
 
 

@@ -20,7 +20,7 @@ const app = new Koa()
 
 //use middlewares
 const middlewares = require('./middlewares')
-app.use(historyApiFallback)
+app.use(historyApiFallback())
 app.use(koaStaic(path.resolve('dist')))
 app.use(bodyParser())
 app.use(middlewares.logger)
@@ -37,11 +37,20 @@ router.get('/articles/', async (ctx, next) => {
   ctx.body = articles
 })
 router.get('/articles/:id', async (ctx, next) => {
-  article = await db.article.findById(ctx.params.id)
-  ctx.body = article
+  if (ctx.params.id != 'new') {
+    article = await db.article.findById(ctx.params.id)
+    ctx.body = article
+  } else {
+    ctx.body = ""
+  }
 })
 router.put('/articles/:id', async (ctx, next) => {
-  article = await db.article.update(ctx.request.body, { where: { id: ctx.params.id } })
+  if (ctx.params.id != 'new') {
+    article = await db.article.update(ctx.request.body, { where: { id: ctx.params.id } })
+  }
+  else {
+    article = await db.article.create(ctx.request.body)
+  }
   ctx.body = article
 })
 router.del('/articles/:id', async (ctx, next) => {
@@ -97,7 +106,6 @@ app.use(authRouter.routes())
 console.log(authRouter.stack.map(i => i.path))
 console.log(router.stack.map(i => i.path))
 
-app.use(historyApiFallback());
 app.listen(config.port, () => {
   console.log(`I'm listening ${config.port}`)
 })

@@ -10,10 +10,10 @@ async function logger(ctx, next) {
 
 function logIP(mdb) {
   return async function (ctx, next) {
-    ip = ctx.request.ip
+    // ip = ctx.request.ip
     // const ips = mdb.get('ips')
     // ips.find({ip})
-    // console.log(i)
+    // console.log(ip)
     await next()
   }
 }

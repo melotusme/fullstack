@@ -1,26 +1,19 @@
 <template>
-    <el-col :sm="{span: 16, push: 3}">
-    <el-row>
-      <el-col :span="8" v-for="article in articles" :key="article.id">
-        <el-card :body-style="{ padding: '4px' }">
-          <!-- <img src="http://element.eleme.io/static/hamburger.50e4091.png" class="image"> -->
-          <div style="padding: 14px;">
-            <span class="title">{{article.title}}</span>
-            <div class="bottom clearfix">
-              <time class="time">{{ article.createdAt | format}}</time>
-              <el-button type="text" class="button" @click="detail(article.id)" >阅读</el-button>
+    <el-col class="content" :sm="{span: 16, push: 3}" >
+      <el-row>
+        <el-col :span="8" v-for="article in articles" :key="article.id">
+          <el-card :body-style="{ padding: '4px' }">
+            <!-- <img src="http://element.eleme.io/static/hamburger.50e4091.png" class="image"> -->
+            <div style="padding: 14px;">
+              <span class="title">{{article.title}}</span>
+              <div class="bottom clearfix">
+                <time class="time">{{ article.createdAt | format}}</time>
+                <el-button type="text" class="button" @click="detail(article.id)" >阅读</el-button>
+              </div>
             </div>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>    
-    
-    <div class="block">
-      <el-pagination
-        layout="prev, pager, next"
-        :total="1000">
-      </el-pagination>
-    </div>    
+          </el-card>
+        </el-col>
+      </el-row>    
     </el-col>
 </template>
 
@@ -102,6 +95,10 @@ export default {
 
 .clearfix:after {
   clear: both;
+}
+
+.content {
+  margin-top: 50px;
 }
 </style>
 
