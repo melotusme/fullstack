@@ -21,7 +21,7 @@ const app = new Koa()
 //use middlewares
 const middlewares = require('./middlewares')
 app.use(historyApiFallback())
-app.use(koaStatic(path.resolve('../dist')))
+app.use(koaStatic(path.resolve('dist')))
 app.use(bodyParser())
 app.use(middlewares.logger)
 app.use(middlewares.logIP(mdb))
@@ -97,7 +97,7 @@ authRouter.post('/register', async (ctx, next) => {
 })
 
 
-app.use(jwt({ secret }).unless({ path: [/^\/public/, /fav\w*/, /login/, /^\/api\/auth/] }))
+app.use(jwt({ secret }).unless({ path: [/static/,/^\/public/, /fav\w*/, /login/, /^\/api\/auth/] }))
 
 router.use('/api', router.routes())
 app.use(router.routes())
