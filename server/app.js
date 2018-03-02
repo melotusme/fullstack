@@ -12,7 +12,7 @@ const db = require('./models')
 const mdb = require('./mdb')
 
 const path = require('path')
-const koaStaic = require('koa-static')
+const koaStatic = require('koa-static')
 
 
 const app = new Koa()
@@ -21,7 +21,7 @@ const app = new Koa()
 //use middlewares
 const middlewares = require('./middlewares')
 app.use(historyApiFallback())
-app.use(koaStaic(path.resolve('dist')))
+app.use(koaStatic(path.resolve('../dist')))
 app.use(bodyParser())
 app.use(middlewares.logger)
 app.use(middlewares.logIP(mdb))
