@@ -49,6 +49,8 @@ router.put('/articles/:id', async (ctx, next) => {
     article = await db.article.update(ctx.request.body, { where: { id: ctx.params.id } })
   }
   else {
+    params = ctx.request.body
+    delete params.id
     article = await db.article.create(ctx.request.body)
   }
   ctx.body = article

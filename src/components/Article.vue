@@ -62,6 +62,9 @@ export default {
             } else {
               this.$message.error("更新失败!");
             }
+            if (this.$route.params.id == "new"){
+              this.$router.push('/articles')
+            }
           },
           err => {
             this.$message.error("更新失败");
