@@ -45,7 +45,6 @@ export default {
         },
         err => {
           this.$message.error("获取失败");
-          console.log(err);
         }
       );
     },

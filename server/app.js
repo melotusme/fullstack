@@ -51,7 +51,7 @@ router.put('/articles/:id', async (ctx, next) => {
   else {
     params = ctx.request.body
     delete params.id
-    article = await db.article.create(ctx.request.body)
+    article = await db.article.create(params)
   }
   ctx.body = article
 })
@@ -99,7 +99,7 @@ authRouter.post('/register', async (ctx, next) => {
 })
 
 
-app.use(jwt({ secret }).unless({ path: [/static/,/^\/public/, /fav\w*/, /login/, /^\/api\/auth/] }))
+// app.use(jwt({ secret }).unless({ path: [/static/,/^\/public/, /fav\w*/, /login/, /^\/api\/auth/] }))
 
 router.use('/api', router.routes())
 app.use(router.routes())

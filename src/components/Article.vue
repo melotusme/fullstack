@@ -53,6 +53,7 @@ export default {
       );
     },
     put() {
+      console.log(this.article)
       this.$http
         .put(`/api/articles/${this.$route.params.id}`, this.article)
         .then(
@@ -63,7 +64,7 @@ export default {
               this.$message.error("更新失败!");
             }
             if (this.$route.params.id == "new"){
-              this.$router.push('/articles')
+              this.$router.push(`/articles/${response.data.id}`)
             }
           },
           err => {
@@ -72,7 +73,11 @@ export default {
         );
     }
   },
-  mounted() {}
+  mounted() {},
+  beforeUpdate(){
+    this.article = {}
+  }
+  
 };
 </script>
 
