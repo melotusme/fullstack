@@ -18,9 +18,9 @@
 <script>
 import { markdownEditor } from "vue-simplemde";
 import "simplemde-theme-base/dist/simplemde-theme-base.min.css";
-import 'highlight.js/styles/solarized-light.css';
-import 'github-markdown-css'
-import hljs from 'highlight.js';
+import "highlight.js/styles/solarized-light.css";
+import "github-markdown-css";
+import hljs from "highlight.js";
 window.hljs = hljs;
 
 export default {
@@ -28,7 +28,9 @@ export default {
     markdownEditor
   },
   created() {
-    this.get();
+    if (this.$route.params.id != "new"){
+      this.get();
+    }
   },
   data() {
     return {
@@ -53,7 +55,6 @@ export default {
       );
     },
     put() {
-      console.log(this.article)
       this.$http
         .put(`/api/articles/${this.$route.params.id}`, this.article)
         .then(
@@ -63,8 +64,8 @@ export default {
             } else {
               this.$message.error("更新失败!");
             }
-            if (this.$route.params.id == "new"){
-              this.$router.push(`/articles/${response.data.id}`)
+            if (this.$route.params.id == "new") {
+              this.$router.push(`/articles/${response.data.id}`);
             }
           },
           err => {
@@ -74,10 +75,7 @@ export default {
     }
   },
   mounted() {},
-  beforeUpdate(){
-    this.article = {}
-  }
-  
+  updated() {}
 };
 </script>
 
