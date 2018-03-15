@@ -17,7 +17,6 @@ const koaStatic = require('koa-static')
 
 const app = new Koa()
 
-
 //use middlewares
 const middlewares = require('./middlewares')
 app.use(historyApiFallback())
@@ -28,13 +27,13 @@ app.use(middlewares.logIP(mdb))
 
 
 // articles
-router.post('/articles/', async (ctx, next) => {
-  article = await db.article.create(ctx.request.body)
-  ctx.body = article
-})
 router.get('/articles/', async (ctx, next) => {
   articles = await db.article.findAll()
   ctx.body = articles
+})
+router.post('/articles/', async (ctx, next) => {
+  article = await db.article.create(ctx.request.body)
+  ctx.body = article
 })
 router.get('/articles/:id', async (ctx, next) => {
   if (ctx.params.id != 'new') {
@@ -99,15 +98,16 @@ authRouter.post('/register', async (ctx, next) => {
 })
 
 
-// app.use(jwt({ secret }).unless({ path: [/static/,/^\/public/, /fav\w*/, /login/, /^\/api\/auth/] }))
+app.use(jwt({ secret }).unless({ path: [/static/,/^\/public/, /fav\w*/, /login/, /^\/api\/auth/] }))
 
+// routes
 router.use('/api', router.routes())
 app.use(router.routes())
 authRouter.use('/api/auth', authRouter.routes())
 app.use(authRouter.routes())
-console.log(authRouter.stack.map(i => i.path))
-console.log(router.stack.map(i => i.path))
 
 app.listen(config.port, () => {
+  console.log(authRouter.stack.map(i => i.path))
+  console.log(router.stack.map(i => i.path))
   console.log(`I'm listening ${config.port}`)
 })
