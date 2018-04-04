@@ -3,7 +3,6 @@
       <el-row>
         <el-col :span="8" v-for="article in articles" :key="article.id">
           <el-card :body-style="{ padding: '4px' }">
-            <!-- <img src="http://element.eleme.io/static/hamburger.50e4091.png" class="image"> -->
             <div style="padding: 14px;">
               <span class="title">{{article.title}}</span>
               <div class="bottom clearfix">
@@ -98,6 +97,14 @@ export default {
 
 .content {
   margin-top: 50px;
+}
+
+.title{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  height:30px;
 }
 </style>
 

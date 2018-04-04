@@ -98,7 +98,7 @@ authRouter.post('/register', async (ctx, next) => {
 })
 
 
-app.use(jwt({ secret }).unless({ path: [/static/,/^\/public/, /fav\w*/, /login/, /^\/api\/auth/] }))
+app.use(jwt({ secret }).unless({ path: [/static/,/^\/public/, /fav\w*/, /login/, /^\/api\/auth/],method: ["GET"] }))
 
 // routes
 router.use('/api', router.routes())

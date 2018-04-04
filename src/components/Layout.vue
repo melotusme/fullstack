@@ -8,10 +8,8 @@
       <el-menu-item index="logout" @click="logout" class="logout">登出</el-menu-item>
     </el-menu>    
 
-    <el-col>
-      <el-row v-bind:style="{borderColor: 'red'}">
-        <router-view/>
-      </el-row>        
+    <el-col class="body">
+      <router-view/>
     </el-col>
   </el-row>
 </template>
@@ -53,11 +51,14 @@ export default {
   text-align: left;
   height: 100%;
 }
+.el-menu {
+  // 设置高度会导致 选中的menu下划线下沉
+  // height: 5%;
+}
 
-// .logout {
-//   position:absolute;
-//   right:200px;
-// }
+.content,.body {
+  height: 95%;
+}
 </style>
 
 

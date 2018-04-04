@@ -1,6 +1,6 @@
 <template>
-  <el-row class="content">
-      <el-col :sm="{span: 16,offset: 4}">
+  <el-row class="content" >
+      <el-col v-if="isLogin" :sm="{span: 16,offset: 4}">
         <el-input v-model="article.title"/>
         <markdown-editor
           v-model="article.body" :configs="configs"
@@ -12,11 +12,16 @@
           <el-button type="primary" :plain="true" @click="put">保存</el-button>
         </span>
     </el-col>
+    <el-col v-else :sm="{span: 16,offset: 4}">
+        <div class="title" v-html="compiledTitle"></div>
+        <div v-html="compiledBody"></div>
+    </el-col>
   </el-row>
 </template>
 
 <script>
 import { markdownEditor } from "vue-simplemde";
+import marked from "marked";
 import "simplemde-theme-base/dist/simplemde-theme-base.min.css";
 import "highlight.js/styles/solarized-light.css";
 import "github-markdown-css";
@@ -28,7 +33,7 @@ export default {
     markdownEditor
   },
   created() {
-    if (this.$route.params.id != "new"){
+    if (this.$route.params.id != "new") {
       this.get();
     }
   },
@@ -38,7 +43,21 @@ export default {
       configs: {}
     };
   },
-  computed: {},
+  computed: {
+    compiledTitle: function() {
+      return this.article.title;
+      },
+    compiledBody: function() {
+      return marked(this.article.body);
+    },
+    isLogin: function() {
+      let token = localStorage.getItem("koa-blog");
+      if (token != "null" && token != null) {
+        return true;
+      }
+      return false;
+    }
+  },
   methods: {
     get() {
       this.$http.get(`/api/articles/${this.$route.params.id}`).then(
@@ -74,7 +93,11 @@ export default {
         );
     }
   },
-  mounted() {},
+  mounted() {
+    if (this.$route.params.id != "new") {
+      this.get();
+    }
+  },
   updated() {}
 };
 </script>
@@ -84,6 +107,9 @@ export default {
   background-color: #e9eef3;
   color: #333;
   text-align: left;
-  height: 100%;
+  padding-top: 40px;
+}
+.title {
+  text-align: center;
 }
 </style>

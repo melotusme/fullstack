@@ -1,6 +1,6 @@
-# fullstack
+# 笔记
 
-> A nodejs project
+> 一个用js实现的前后端分离的web笔记
 
 ## Build Setup
 

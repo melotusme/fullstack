@@ -72,18 +72,15 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
 .content {
   margin-top: 12%;
 }
 .title {
   font-size: 28px;
 }
-
 .el-input {
   margin: 12px 0;
 }
-
 .el-button {
   width: 100%;
 }
