@@ -104,7 +104,6 @@ export default {
 
 <style scoped>
 .content {
-  background-color: #e9eef3;
   color: #333;
   text-align: left;
   padding-top: 40px;

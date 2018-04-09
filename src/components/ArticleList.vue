@@ -7,7 +7,7 @@
               <span class="title">{{article.title}}</span>
               <div class="bottom clearfix">
                 <time class="time">{{ article.createdAt | format}}</time>
-                <el-button type="text" class="button" @click="detail(article.id)" >阅读</el-button>
+                <el-button type="text" class="button" @click="detail(article.id)">阅读</el-button>
               </div>
             </div>
           </el-card>
@@ -96,7 +96,7 @@ export default {
 }
 
 .content {
-  margin-top: 50px;
+  padding-top: 50px;
 }
 
 .title{

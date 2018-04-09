@@ -5,7 +5,8 @@
       <el-menu-item index="articles" :route="{path: '/articles'}">全部文章</el-menu-item>
       <el-menu-item index="new" :route="{path: '/articles/new'}">写文章</el-menu-item>
       <el-menu-item index="about" :route="{path: '/about'}">关于我</el-menu-item>
-      <el-menu-item index="logout" @click="logout" class="logout">登出</el-menu-item>
+      <el-menu-item index="logout" v-if="isLogin" @click="logout" class="logout">登出</el-menu-item>
+      <el-menu-item index="login" v-else class="login">登录</el-menu-item>
     </el-menu>    
 
     <el-col class="body">
@@ -21,12 +22,21 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.removeItem("koaBlog");
+      localStorage.removeItem("koa-blog");
       this.$notify({
         title: "成功",
         message: "注销",
         type: "success"
       });
+    }
+  },
+  computed: {
+    isLogin: function() {
+      let token = localStorage.getItem("koa-blog");
+      if (token != "null" && token != null) {
+        return true;
+      }
+      return false;
     }
   }
 };
@@ -57,7 +67,10 @@ export default {
 }
 
 .content,.body {
-  height: 95%;
+  height: 90%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 </style>
 
