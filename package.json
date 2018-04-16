@@ -28,6 +28,7 @@
     "koa-jwt": "^3.3.0",
     "koa-router": "^7.3.0",
     "koa-static": "^4.0.2",
+    "koa2-connect-history-api-fallback": "^0.0.6",
     "lodash": "^4.17.4",
     "mermaid": "^7.1.2",
     "moment": "^2.20.1",

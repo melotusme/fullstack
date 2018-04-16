@@ -5,7 +5,8 @@ const bodyParser = require('koa-bodyparser')
 const jsonwebtoken = require('jsonwebtoken')
 const jwt = require('koa-jwt')
 const bcrypt = require('bcryptjs')
-const historyApiFallback = require('koa-history-api-fallback');
+//const historyApiFallback = require('koa-history-api-fallback');
+const historyApiFallback = require('koa2-connect-history-api-fallback');
 
 const config = require('./config/server.json')
 const db = require('./models')
@@ -19,7 +20,7 @@ const app = new Koa()
 
 //use middlewares
 const middlewares = require('./middlewares')
-app.use(historyApiFallback())
+app.use(historyApiFallback({ whiteList: ['/api'] }))
 app.use(koaStatic(path.resolve('dist')))
 app.use(bodyParser())
 app.use(middlewares.logger)

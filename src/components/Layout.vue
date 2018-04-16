@@ -6,7 +6,7 @@
       <el-menu-item index="new" :route="{path: '/articles/new'}">写文章</el-menu-item>
       <el-menu-item index="about" :route="{path: '/about'}">关于我</el-menu-item>
       <el-menu-item index="logout" v-if="isLogin" @click="logout" class="logout">登出</el-menu-item>
-      <el-menu-item index="login" v-else class="login">登录</el-menu-item>
+      <el-menu-item index="login" v-else :route="{path: '/login'}" class="login">登录</el-menu-item>
     </el-menu>    
 
     <el-col class="body">

@@ -46,7 +46,7 @@ export default {
   computed: {
     compiledTitle: function() {
       return this.article.title;
-      },
+    },
     compiledBody: function() {
       return marked(this.article.body);
     },
@@ -56,6 +56,13 @@ export default {
         return true;
       }
       return false;
+    }
+  },
+  watch: {
+    "article.id": function() {
+      if (this.article.id == "new") {
+        this.article = {};
+      }
     }
   },
   methods: {
@@ -96,6 +103,8 @@ export default {
   mounted() {
     if (this.$route.params.id != "new") {
       this.get();
+    } else {
+      this.article = {};
     }
   },
   updated() {}
