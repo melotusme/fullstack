@@ -68,6 +68,10 @@ const secret = "keep me secret"
 authRouter.post('/login', async (ctx, next) => {
   params = ctx.request.body
   user = await db.user.findOne({ where: { username: params.username } })
+  if (user==null){
+    ctx.body = {code: "failed"}
+    return
+  }
   payload = { id: user.id, username: user.username }
   token = jsonwebtoken.sign(payload, secret)
 
