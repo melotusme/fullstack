@@ -1,3 +1,4 @@
 {
-  "port": 8899
+  "port": 8899,
+  "secret": "keep me secret"
 }
