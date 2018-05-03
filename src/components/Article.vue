@@ -2,12 +2,8 @@
   <el-row class="content">
     <el-col v-if="isLogin" :sm="{span: 16,offset: 4}">
       <el-input v-model="article.title"/>
-      <markdown-editor
-        v-model="article.body"
-        :configs="configs"
-        ref="markdownEditor"
-        preview-class="markdown-body"
-        :highlight="true"
+      <markdown-editor v-model="article.body" :configs="configs" ref="markdownEditor" preview-class="markdown-body"
+                       :highlight="true"
       />
       <span class="pull-right">
           <el-button type="primary" :plain="true" @click="put">保存</el-button>
@@ -45,9 +41,7 @@
       };
     },
     computed: {
-      compiledTitle: function () {
-        return this.article.title;
-      },
+      compiledTitle: () => this.article.title,
       compiledBody: function () {
         return marked(this.article.body);
       },
