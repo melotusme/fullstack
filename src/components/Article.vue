@@ -53,13 +53,6 @@
         return false;
       }
     },
-    watch: {
-      "article.id": function () {
-        if (this.article.id == "new") {
-          this.article = {};
-        }
-      }
-    },
     methods: {
       get() {
         this.$http.get(`/api/articles/${this.$route.params.id}`).then(

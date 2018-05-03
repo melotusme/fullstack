@@ -7,10 +7,15 @@ module.exports = (sequelize, DataTypes) => {
     content: DataTypes.STRING,
     // createdAt: DataTypes.NOW,
     // updatedAt: DataTypes.DATE,
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'createdAt',
+      defaultValue: sequelize.literal('NOW()')
+    },
     deleteAt: DataTypes.DATE
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: function (models) {
         // associations can be defined here
       }
     }

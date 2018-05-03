@@ -16,62 +16,63 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {};
-  },
-  methods: {
-    logout() {
-      localStorage.removeItem("koa-blog");
-      this.$notify({
-        title: "成功",
-        message: "注销",
-        type: "success"
-      });
-    }
-  },
-  computed: {
-    isLoginComponent: function() {
-      let token = localStorage.getItem("koa-blog");
-      if ( token != null) {
-        return true;
+  export default {
+    data() {
+      return {};
+    },
+    methods: {
+      logout() {
+        localStorage.removeItem("koa-blog");
+        this.$notify({
+          title: "成功",
+          message: "注销",
+          type: "success"
+        });
       }
-      return false;
+    },
+    computed: {
+      isLoginComponent: function () {
+        let token = localStorage.getItem("koa-blog");
+        if (token != null) {
+          return true;
+        }
+        return false;
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="stylus" scoped>
-.el-header, .el-footer {
-  background-color: #b3c0d1;
-  color: #333;
-  text-align: center;
-}
+  .el-header, .el-footer {
+    background-color: #b3c0d1;
+    color: #333;
+    text-align: center;
+  }
 
-.el-aside {
-  background-color: #d3dce6;
-  color: #333;
-  text-align: center;
-}
+  .el-aside {
+    background-color: #d3dce6;
+    color: #333;
+    text-align: center;
+  }
 
-.el-main {
-  background-color: #e9eef3;
-  color: #333;
-  text-align: left;
-  height: 100%;
-}
-.el-menu {
-  // 设置高度会导致 选中的menu下划线下沉
-  // height: 5%;
-}
+  .el-main {
+    background-color: #e9eef3;
+    color: #333;
+    text-align: left;
+    height: 100%;
+  }
 
-.content,.body {
-  height: 90%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
+  .el-menu {
+    // 设置高度会导致 选中的menu下划线下沉
+    // height: 5%;
+  }
+
+  .content, .body {
+    height: 90%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
 </style>
 
 

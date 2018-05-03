@@ -28,17 +28,19 @@ app.use(middlewares.logger);
 app.use(middlewares.logIP(mdb));
 
 
+// controllers and routes
 const controllers = require("./controllers");
 controllers.set(router, authRouter, db);
-
 app.use(jwt({secret}).unless({path: [/static/, /^\/public/, /fav\w*/, /login/, /^\/api\/auth/], method: ["GET"]}));
 
 // routes
 router.use('/api', router.routes());
 app.use(router.routes());
+
 // auth routes
 authRouter.use('/api/auth', authRouter.routes());
 app.use(authRouter.routes());
+
 
 app.listen(config.port, () => {
   console.log(authRouter.stack.map(i => i.path));
