@@ -2,12 +2,14 @@
   <el-col class="content" :sm="{span: 16, push: 3}">
     <el-row>
       <el-col :span="8" v-for="article in articles" :key="article.id">
-        <el-card :body-style="{ padding: '4px' }">
+        <el-card :body-style="{ padding: '4px' }"
+                 v-on="mouseover=()=>{}"
+                 @click.native="detail(article.id)">
           <div style="padding: 14px;">
             <span class="title">{{article.title}}</span>
             <div class="bottom clearfix">
               <time class="time">{{ article.createdAt | format}}</time>
-              <el-button type="text" class="button" @click="detail(article.id)">阅读</el-button>
+              <!--<el-button type="text" class="button" @click="detail(article.id)">阅读</el-button>-->
             </div>
           </div>
         </el-card>
@@ -107,6 +109,12 @@
     text-overflow: ellipsis;
     display: inline-block;
     height: 30px;
+  }
+
+  .el-card {
+    &:hover {
+      background: lightskyblue;
+    }
   }
 </style>
 
