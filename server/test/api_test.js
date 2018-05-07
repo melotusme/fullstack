@@ -30,9 +30,16 @@ describe("test koa blog app", () => {
         .set("Authorization", "Bearer " + token)
         .expect(201);
     });
+    it('get /api/articles/1 should get OK', async () => {
+      let res = await request
+        .get('/api/articles/1')
+        .set("Authorization", "Bearer " + token)
+        .expect(200);
+    });
+
     it('put /api/articles/1 should get OK', async () => {
       let res = await request
-        .put('/api/articles/')
+        .put('/api/articles/1')
         .send({title: "t", body: "b"})
         .set("Authorization", "Bearer " + token)
         .expect(200);

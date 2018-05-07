@@ -11,7 +11,7 @@ module.exports.set = function (router, db) {
   });
   router.get('/articles/:id', async (ctx, next) => {
     if (ctx.params.id != 'new') {
-      article = await db.article.findById(ctx.params.id);
+      let article = await db.article.findById(ctx.params.id);
       ctx.body = article;
     } else {
       ctx.body = "";
