@@ -7,6 +7,7 @@ import Axios from 'axios';
 import showdown from 'showdown';
 import App from './App';
 import router from './router';
+import layout from '@/components/Layout';
 
 // 请求中加入 token
 router.beforeEach((to, from, next) => {
@@ -17,9 +18,8 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-import layout from '@/components/Layout';
-
 Vue.use(layout);
+Vue.use(require('vue-shortkey'));
 Vue.use(ElementUI);
 Vue.prototype.$http = Axios;
 Vue.prototype.$converter = new showdown.Converter();

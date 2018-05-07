@@ -1,5 +1,7 @@
 <template>
-  <el-row class="content">
+  <el-row class="content"
+          v-shortkey="['meta', 's']" @shortkey.native="put()"
+  >
     <el-col v-if="isLogin" :sm="{span: 16,offset: 4}">
       <el-input v-model="article.title"/>
       <markdown-editor v-model="article.body" :configs="configs" ref="markdownEditor" preview-class="markdown-body"
@@ -37,7 +39,11 @@
     data() {
       return {
         article: {},
-        configs: {}
+        configs: {
+          shortcuts: {
+            "toggleFullScreen": "F11",
+          }
+        }
       };
     },
     computed: {
