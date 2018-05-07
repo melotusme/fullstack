@@ -33,5 +33,6 @@ module.exports.set = function (router, db) {
       where: {id: ctx.params.id}
     });
     ctx.body = article;
+    ctx.status = 204;
   });
 };
