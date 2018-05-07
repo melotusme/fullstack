@@ -7,6 +7,7 @@ module.exports.set = function (router, db) {
   router.post('/articles/', async (ctx, next) => {
     let article = await db.article.create(ctx.request.body);
     ctx.body = article;
+    ctx.status = 201;
   });
   router.get('/articles/:id', async (ctx, next) => {
     if (ctx.params.id != 'new') {
@@ -17,10 +18,10 @@ module.exports.set = function (router, db) {
     }
   });
   router.put('/articles/:id', async (ctx, next) => {
+    let article = {};
     if (ctx.params.id != 'new') {
       article = await db.article.update(ctx.request.body, {where: {id: ctx.params.id}});
-    }
-    else {
+    } else {
       let params = ctx.request.body;
       delete params.id;
       article = await db.article.create(params);
@@ -28,7 +29,7 @@ module.exports.set = function (router, db) {
     ctx.body = article;
   });
   router.del('/articles/:id', async (ctx, next) => {
-    article = await db.article.destroy({
+    let article = await db.article.destroy({
       where: {id: ctx.params.id}
     });
     ctx.body = article;

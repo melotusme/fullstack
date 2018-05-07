@@ -42,10 +42,8 @@
     },
     computed: {
       compiledTitle: () => this.article.title,
-      compiledBody: function () {
-        return marked(this.article.body);
-      },
-      isLoginComponent: function () {
+      compiledBody: () => marked(this.article.body),
+      isLogin: function () {
         let token = localStorage.getItem("koa-blog");
         if (token != "null" && token != null) {
           return true;

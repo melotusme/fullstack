@@ -31,7 +31,7 @@
       }
     },
     computed: {
-      isLoginComponent: function () {
+      isLogin: function () {
         let token = localStorage.getItem("koa-blog");
         if (token != null) {
           return true;

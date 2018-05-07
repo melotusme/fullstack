@@ -4,9 +4,8 @@ const secret = config.secret;
 const bcrypt = require('bcryptjs');
 const jsonwebtoken = require('jsonwebtoken');
 
-
 module.exports.set = function (authRouter, db) {
-  // auth
+  // authorize
   authRouter.post('/login', async (ctx, next) => {
     let params = ctx.request.body;
     let user = await db.user.findOne({where: {username: params.username}});
@@ -30,6 +29,7 @@ module.exports.set = function (authRouter, db) {
     }
   });
 
+  // register
   authRouter.post('/register', async (ctx, next) => {
     let params = ctx.request.body;
     let salt = bcrypt.genSaltSync(10);
@@ -42,7 +42,11 @@ module.exports.set = function (authRouter, db) {
       code: "success",
       token,
     };
+    ctx.status = 201;
   });
+};
 
 
+module.exports.genToken = (payload) => {
+  return jsonwebtoken.sign(payload, secret);
 };

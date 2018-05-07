@@ -41,9 +41,6 @@ app.use(router.routes());
 authRouter.use('/api/auth', authRouter.routes());
 app.use(authRouter.routes());
 
-
-app.listen(config.port, () => {
-  console.log(authRouter.stack.map(i => i.path));
-  console.log(router.stack.map(i => i.path));
-  console.log(`I'm listening ${config.port}`);
-});
+module.exports.app = app;
+module.exports.authRouter = authRouter;
+module.exports.router = router;
