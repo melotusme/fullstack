@@ -12,7 +12,11 @@ module.exports.set = function (router, db) {
   router.get('/articles/:id', async (ctx, next) => {
     if (ctx.params.id != 'new') {
       let article = await db.article.findById(ctx.params.id);
-      ctx.body = article;
+      if (article != null) {
+        ctx.body = article;
+      } else {
+        ctx.status = 404;
+      }
     } else {
       ctx.body = "";
     }
